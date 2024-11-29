@@ -1,0 +1,62 @@
+.stepper-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 25%; /* Each item takes up 25% of the width */
+  text-align: center;
+}
+
+.stepper-circle {
+  width: 30px;
+  height: 30px;
+  background-color: #bbb; /* Default gray color */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  z-index: 1; /* Ensures the circle stays above the line */
+}
+
+.stepper-circle.completed {
+  background-color: #4caf50; /* Green for completed steps */
+}
+
+.stepper-label {
+  margin-top: 8px; /* Space between the circle and the label */
+  font-size: 14px;
+  width: 100%; /* Ensure the label text doesn't overflow */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Handle long text gracefully */
+}
+
+.stepper-line {
+  height: 2px;
+  width: 100%; /* Line spans the full width between circles */
+  background-color: #bbb; /* Default gray color */
+  position: absolute;
+  top: 15px;
+  left: 100%; /* Position line in the center of the circle */
+  transform: translateX(-50%);
+  z-index: 0;
+}
+.stepper-line.completed {
+  background-color: #4caf50; /* Green for completed steps */
+}
+
+.stepper-item:not(:last-child) .stepper-line {
+  display: block; /* Ensure line is shown except for the last item */
+}
+
+.stepper-item:last-child .stepper-line {
+  display: none; /* Hide the line after the last circle */
+}
