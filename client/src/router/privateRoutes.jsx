@@ -46,7 +46,7 @@ export const privateRoutes = [
             element: <Outgoing />,
           },
           {
-            path: "/dashboard/file_Manager",
+            path: "/dashboard/file_manager",
             element: <FileManager />,
           },
           {

@@ -338,8 +338,8 @@ const Layout = () => {
 
                 <li>
                   <Link
-                    to="/dashboard/file_Manager"
-                    onClick={() => handleItemClick("file_Manager")}
+                    to="/dashboard/file_manager"
+                    onClick={() => handleItemClick("file_anager")}
                     style={{
                       backgroundColor:
                         activeItem === "file_Manager" ? "#00d0f1" : "",

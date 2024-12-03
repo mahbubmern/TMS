@@ -13,6 +13,7 @@ import userPhotoRoute from "./routes/userPhotoRoute.js";
 import todoRoute from "./routes/todoRoute.js";
 import departmentRoute from "./routes/departmentRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+import fileFolderRoute from "./routes/fileFolderRoute.js";
 import notificationRoute from "./routes/notificationRoute.js";
 import errorHandler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
@@ -57,6 +58,7 @@ app.use("/api/v1/todo", todoRoute);
 app.use("/api/v1/department", departmentRoute);
 app.use("/api/v1/notification", notificationRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/dashboard/filemanager", fileFolderRoute);
 
 //error handler
 app.use(errorHandler);
