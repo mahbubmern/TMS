@@ -10,6 +10,11 @@ const fileSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   size: {
     type: Number, // File size in bytes
     required: true,
@@ -25,21 +30,25 @@ const fileSchema = mongoose.Schema({
 });
 
 // Folder Schema
-const folderSchema =  mongoose.Schema({
+const folderSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   parentFolder: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Folder', // Reference to parent folder, null if root folder
+    ref: "Folder", // Reference to parent folder, null if root folder
     default: null,
+  },
+  userId: {
+    type: String, // File type, e.g., 'pdf', 'docx', etc.
+    required: true,
   },
   files: [fileSchema], // Array of files in the folder
   subfolders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Folder', // Reference to subfolders
+      ref: "Folder", // Reference to subfolders
     },
   ],
   createdAt: {
@@ -49,9 +58,9 @@ const folderSchema =  mongoose.Schema({
   uploadedAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 // Models
-export const File = mongoose.model('File', fileSchema);
-export const Folder = mongoose.model('Folder', folderSchema);
+export const File = mongoose.model("File", fileSchema);
+export const Folder = mongoose.model("Folder", folderSchema);

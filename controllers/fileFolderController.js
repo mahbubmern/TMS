@@ -23,30 +23,34 @@ import { sendSMS } from "../mails/sendSMS.js";
  * @route : '/api/v1/createfolder'
  */
 export const createFolder = asyncHandler(async (req, res) => {
-  const { name, parentFolder } = req.body;
-
-  
+  const { name, parentFolder, userId } = req.body;
 
   // Validate request
   if (!name) {
     return res.status(400).json({ message: "Folder name Required" });
   }
 
-  // // Check if a folder with the same name exists in the same parent folder
-  // const existingFolder = await Folder.findOne({
-  //   folderName: folderName,
-  //   parentFolder: parentFolder || null, // Null for root folders
-  // });
+  // find user
 
-  // if (existingFolder) {
-  //   return res.status(400).json({
-  //     message: "Folder with the same name already exists in this directory.",
-  //   });
-  // }
+  const findUser = await Users.findOne({_id : userId})
 
-  // Create the new folder
+  // Check if a folder with the same name exists in the same parent folder
+  const existingFolder = await Folder.findOne({
+    name: name,
+    userId : findUser._id,
+    parentFolder: parentFolder || null, // Null for root folders
+  });
+
+  if (existingFolder) {
+    return res.status(400).json({
+      message: "Folder with the same name already exists in this directory.",
+    });
+  }
+
+  //Create the new folder
   const newFolder = new Folder({
     name,
+    userId : findUser._id,
     parentFolder: parentFolder || null, // Null if it's a root folder
   });
 
@@ -57,6 +61,36 @@ export const createFolder = asyncHandler(async (req, res) => {
     message: "Folder created successfully.",
     folders: savedFolder,
   });
+});
+
+
+//=========================================================//
+
+// single users all folder
+
+// Controller to get all folders by user ID
+export const getuserFolders = asyncHandler(async (req, res) => {
+
+  
+
+  try {
+    // Fetch all folders for the user
+    const folders = await Folder.find().sort({ createdAt: -1 });
+
+    if (!folders || folders.length === 0) {
+      return res.status(404).json({ message: "No folders found for this user" });
+    }
+
+    // Send response
+    res.status(200).json({
+      folders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
 });
 // /**
 //  * @description : update user

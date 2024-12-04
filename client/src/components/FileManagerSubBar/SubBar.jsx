@@ -1,28 +1,39 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./SubBar.css";
-
+import { createFolder } from "../../features/fileFolder/fileFolderApiSlice";
+import { authSelector } from "../../features/auth/authSlice";
 const SubBar = ({ setSearchTerm }) => {
   const [showFolderCreatePopUp, setShowFolderCreatePopUp] = useState("none");
-  const [folderName, setFolderName] = useState(""); // State for the input value
+  const [name, setName] = useState(""); // State for the input value
   const inputRef = useRef(null); // Reference to the input field
 
+  // Auth selector
+  const { user, loader, error, message } = useSelector(authSelector);
+
+  //dispatch
+
+  const dispatch = useDispatch();
+
   const handleCreateNewFolder = () => {
-    setFolderName("New Folder"); // Set default text
+    setName("New Folder"); // Set default text
     setShowFolderCreatePopUp("block"); // Show the pop-up
     setTimeout(() => inputRef.current?.focus(), 0); // Focus on the input field
   };
 
   //handle confirm create new folder
 
-  const handleConfirmCreateNewFolder = () => {
-
+  const handleConfirmCreateNewFolder = (e) => {
+    e.preventDefault();
+    dispatch(createFolder({ name, userId : user._id }));
 
     setShowFolderCreatePopUp("none"); // Hide the pop-up
   };
 
-  const handleCloseFolderPopup = () => {
+  const handleCloseFolderPopup = (e) => {
+    e.preventDefault();
     setShowFolderCreatePopUp("none"); // Hide the pop-up
-    setFolderName(""); // Clear the input value
+    setName(""); // Clear the input value
   };
 
   return (
@@ -107,35 +118,45 @@ const SubBar = ({ setSearchTerm }) => {
                 ></path>
               </svg>
             </span>
-            <a href="#" style={{ color: "#00B2FF", fontWeight: '800' }}>Dashboard</a>{" "}
+            <a href="#" style={{ color: "#00B2FF", fontWeight: "800" }}>
+              Dashboard
+            </a>{" "}
             <span className="breadcrum-angle">
               <i
                 style={{ color: "#00B2FF" }}
                 className="fa-solid fa-angle-right"
               ></i>
             </span>
-            <a href="#" style={{ color: "#00B2FF", fontWeight: '800' }}>File Manager</a>{" "}
+            <a href="#" style={{ color: "#00B2FF", fontWeight: "800" }}>
+              File Manager
+            </a>{" "}
             <span className="breadcrum-angle">
               <i
                 style={{ color: "#00B2FF" }}
                 className="fa-solid fa-angle-right"
               ></i>
             </span>
-            <a href="#" style={{ color: "#00B2FF", fontWeight: '800' }}>New Folder</a>{" "}
+            <a href="#" style={{ color: "#00B2FF", fontWeight: "800" }}>
+              New Folder
+            </a>{" "}
             <span className="breadcrum-angle">
               <i
                 style={{ color: "#00B2FF" }}
                 className="fa-solid fa-angle-right"
               ></i>
             </span>
-            <a href="#" style={{ color: "#00B2FF", fontWeight: '800' }}>New Folder 1</a>{" "}
+            <a href="#" style={{ color: "#00B2FF", fontWeight: "800" }}>
+              New Folder 1
+            </a>{" "}
             <span className="breadcrum-angle">
               <i
                 style={{ color: "#00B2FF" }}
                 className="fa-solid fa-angle-right"
               ></i>
             </span>
-            <a href="#" style={{ color: "#00B2FF", fontWeight: '800' }}>New Folder 2</a>{" "}
+            <a href="#" style={{ color: "#00B2FF", fontWeight: "800" }}>
+              New Folder 2
+            </a>{" "}
             <span className="breadcrum-angle">
               <i
                 style={{ color: "#00B2FF" }}
@@ -155,65 +176,88 @@ const SubBar = ({ setSearchTerm }) => {
           <tbody>
             <tr className="odd">
               <td>
-                <div
-                  className="folder-create-popup"
-                  style={{
-                    marginLeft: "50px",
-                    display: showFolderCreatePopUp, // Dynamically set the display property
-                  }}
-                >
-                  <i
-                    className="fa-solid fa-folder-plus"
-                    style={{ fontSize: "16px", color: "#01B2FF" }}
-                  ></i>
-                  <input
-                    ref={inputRef} // Attach the reference to the input field
-                    type="text"
-                    name="folderName"
-                    value={folderName} // Controlled input
-                    onChange={(e) => setFolderName(e.target.value)} // Update state on change
+                <form>
+                  <div
+                    className="folder-create-popup"
                     style={{
-                      border: "1px solid #ddd",
-                      padding: "4px 15px",
-                      borderRadius: "5px",
-                      marginRight: "12px",
-                      marginLeft: "20px",
-                      width: "25%",
-                      backgroundColor: "#FFF",
-                      fontSize: "14px",
+                      marginLeft: "50px",
+                      display: showFolderCreatePopUp, // Dynamically set the display property
                     }}
-                    placeholder="Enter the folder name"
-                  />
-                  <button
-                    style={{
-                      border: "none",
-                      width: "30px",
-                      height: "30px",
-                      textAlign: "center",
-                      borderRadius: "5px",
-                      backgroundColor: "#F1FAFF",
-                      color: "#45A79B",
-                    }}
-                    onClick={handleConfirmCreateNewFolder}
                   >
-                    <i className="fa-solid fa-check"style={{fontSize : '12px'}}></i>
-                  </button>
-                  &nbsp;
-                  <button
-                    style={{
-                      border: "none",
-                      width: "30px",
-                      height: "30px",
-                      textAlign: "center",
-                      borderRadius: "5px",
-                      backgroundColor: "#F1FAFF",
-                      color: "red",
-                    }}
-                    onClick={handleCloseFolderPopup} // Close button functionality
-                  >
-                    <i className="fa-solid fa-x" style={{fontSize : '12px'}}></i>
-                  </button>
-                </div>
+                    <i
+                      className="fa-solid fa-folder-plus"
+                      style={{ fontSize: "16px", color: "#01B2FF" }}
+                    ></i>
+                    <input
+                      ref={inputRef} // Attach the reference to the input field
+                      type="text"
+                      name="name"
+                      value={name} // Controlled input
+                      onChange={(e) => setName(e.target.value)} // Update state on change
+                      style={{
+                        border: "1px solid #ddd",
+                        padding: "4px 15px",
+                        borderRadius: "5px",
+                        marginRight: "12px",
+                        marginLeft: "20px",
+                        width: "25%",
+                        backgroundColor: "#FFF",
+                        fontSize: "14px",
+                      }}
+                      placeholder="Enter the folder name"
+                    />
+                    <input
+                      type="text"
+                      name="userId"
+                      value={user._id} // Controlled inputl
+                      style={{
+                        border: "1px solid #ddd",
+                        padding: "4px 15px",
+                        borderRadius: "5px",
+                        marginRight: "12px",
+                        marginLeft: "20px",
+                        width: "25%",
+                        backgroundColor: "#FFF",
+                        fontSize: "14px",
+                      }}
+                    />
+                    <button
+                      style={{
+                        border: "none",
+                        width: "30px",
+                        height: "30px",
+                        textAlign: "center",
+                        borderRadius: "5px",
+                        backgroundColor: "#F1FAFF",
+                        color: "#45A79B",
+                      }}
+                      onClick={handleConfirmCreateNewFolder}
+                    >
+                      <i
+                        className="fa-solid fa-check"
+                        style={{ fontSize: "12px" }}
+                      ></i>
+                    </button>
+                    &nbsp;
+                    <button
+                      style={{
+                        border: "none",
+                        width: "30px",
+                        height: "30px",
+                        textAlign: "center",
+                        borderRadius: "5px",
+                        backgroundColor: "#F1FAFF",
+                        color: "red",
+                      }}
+                      onClick={handleCloseFolderPopup} // Close button functionality
+                    >
+                      <i
+                        className="fa-solid fa-x"
+                        style={{ fontSize: "12px" }}
+                      ></i>
+                    </button>
+                  </div>
+                </form>
               </td>
             </tr>
           </tbody>

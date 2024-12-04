@@ -7,6 +7,9 @@ import { isValidEmail, isValidPhoneNumber } from "../helpers/helpers.js";
 // create Token Verify Middleware
 const tokenVerify = (req, res, next) => {
   const accessToken = req.cookies.accessToken;
+
+  console.log(req.cookies);
+  
   if (!accessToken) {
     return res.status(400).json({ message: "Unauthorised" });
   }

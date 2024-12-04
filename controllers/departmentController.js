@@ -37,8 +37,6 @@ export const createDepartment = asyncHandler(async (req, res) => {
   // Find User
   const findUser = await Users.findById(id);
 
-  console.log(id, name);
-  console.log(findUser);
 
   if (!findUser) {
     return res.status(400).json({ message: "User Not Found" });
