@@ -1,0 +1,96 @@
+div.dt-buttons > .dt-button,
+div.dt-buttons > div.dt-button-split .dt-button {
+  padding: 0.5em 0.5em;
+}
+div.dt-container .dt-search input {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 2px;
+  background-color: transparent;
+  color: inherit;
+  margin-left: 10px;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+  padding: 0.1em 0.1em;
+  margin-left: 1px;
+}
+table.dataTable > tbody > tr > th,
+table.dataTable > tbody > tr > td {
+  padding: 5px 10px;
+}
+svg {
+  vertical-align: middle;
+  color: #163564;
+  width: 40px;
+}
+
+.css-13cymwt-control {
+  background-color: lightyellow !important;
+}
+.css-hlgwow {
+  background-color: lightyellow;
+}
+.css-t3ipsp-control {
+  background-color: lightyellow;
+}
+
+.subject-column {
+  position: relative;
+  max-width: 150px; /* Set the width you prefer */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.subject-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  vertical-align: middle;
+  
+}
+
+.subject-column:hover .tooltip {
+  content: attr(title); /* Display the full text */
+  position: absolute;
+  background-color: rgb(107, 107, 107);
+  color: white;
+  padding: 10px 10px;
+  border-radius: 5px;
+  top: -70px; /* Position the tooltip above the text */
+  left: 125%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  font-size: 14px;
+  line-height: 1.2;
+  width: max-content;
+  max-width: 400px;
+  text-align: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+.subject-column:hover .tooltip::before {
+  content: "";
+  position: absolute;
+  top: 36px; /* Adjust this value to move the arrow up or down */
+  left: 25%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color:   rgb(107, 107, 107) transparent transparent transparent; /* Create the downward arrow */
+  z-index: 9998;
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  display: none;
+}
+
+.subject-column:hover .tooltip {
+  display: block;
+}

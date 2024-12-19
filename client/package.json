@@ -1,0 +1,46 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
+    "axios": "^1.6.7",
+    "chart.js": "^4.4.2",
+    "datatables.net-buttons": "^3.0.2",
+    "datatables.net-buttons-dt": "^3.0.2",
+    "datatables.net-dt": "^2.0.8",
+    "jquery": "^3.7.1",
+    "jszip": "^3.10.1",
+    "pdfmake": "^0.2.10",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.4",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-pdf-js": "^5.1.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.1",
+    "react-select": "^5.8.0",
+    "react-step-progress-bar": "^1.0.3",
+    "react-toastify": "^10.0.4",
+    "sweetalert2": "^11.12.1",
+    "universal-cookie": "^7.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.4"
+  }
+}

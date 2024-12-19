@@ -1,0 +1,14 @@
+.iconBtn:hover .iconSvg path,
+.iconBtn:hover .iconSvg rect {
+  fill: #00b2ff; /* Change SVG fill color to red */
+}
+
+
+.dropdown-item:hover{
+  background-color: #ebf7fc !important;
+  color: #00B2FF !important;
+}
+
+
+
+
